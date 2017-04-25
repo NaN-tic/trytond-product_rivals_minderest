@@ -72,11 +72,12 @@ class ProductAppRivals:
             rival_prices = []
             for k, v in rivals_cols.iteritems():
                 rival_name = k
-                rival_price = Decimal(row[v].replace(',', '.'))
+                rival_price = row[v].replace(',', '.')
                 if not rival_price:
                     continue
-                rivals[rival_name] = rival_price
-                rival_prices.append(rival_price)
+                rprice = Decimal(rival_price)
+                rivals[rival_name] = rprice
+                rival_prices.append(rprice)
             if not rival_prices:
                 continue
             min_price = min(rival_prices)
