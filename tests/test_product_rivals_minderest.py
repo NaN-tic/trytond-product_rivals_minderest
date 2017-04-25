@@ -4,27 +4,27 @@
 import unittest
 import os
 from decimal import Decimal
-from trytond.tests.test_tryton import ModuleTestCase
+from trytond.tests.test_tryton import ModuleTestCase, with_transaction
 from trytond.tests.test_tryton import suite as test_suite
-from trytond.tests.test_tryton import POOL, DB_NAME, USER, CONTEXT
-from trytond.transaction import Transaction
+from trytond.modules.company.tests import create_company, set_company
+from trytond.pool import Pool
 
 
 class ProductRivalsMinderestTestCase(ModuleTestCase):
     'Test Product Rivals Netrivals module'
     module = 'product_rivals_minderest'
 
-    def setUp(self):
-        super(ProductRivalsMinderestTestCase, self).setUp()
-        self.app_rivals = POOL.get('product.app.rivals')
-        self.uom = POOL.get('product.uom')
-        self.template = POOL.get('product.template')
-
-    def test0010minderest(self):
+    @with_transaction()
+    def test_minderest(self):
         'Minderest CSV data'
-        with Transaction().start(DB_NAME, USER,
-                context=CONTEXT) as transaction:
-            minderest, = self.app_rivals.create([{
+        pool = Pool()
+        AppRivals = pool.get('product.app.rivals')
+        Uom = pool.get('product.uom')
+        Template = pool.get('product.template')
+
+        company = create_company()
+        with set_company(company):
+            minderest, = AppRivals.create([{
                         'name': 'Minderest',
                         'app': 'minderest',
                         'app_uri': 'http://localhost',
@@ -32,10 +32,10 @@ class ProductRivalsMinderestTestCase(ModuleTestCase):
                         'app_password': 'test',
                         }])
 
-            unit, = self.uom.search([
+            unit, = Uom.search([
                     ('name', '=', 'Unit'),
                     ], limit=1)
-            pt1, pt2 = self.template.create([{
+            pt1, pt2 = Template.create([{
                         'name': 'Product 1',
                         'type': 'goods',
                         'list_price': Decimal(20),
