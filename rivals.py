@@ -5,12 +5,9 @@ import urllib2
 import base64
 import csv
 from decimal import Decimal
-from simpleeval import simple_eval
 from trytond.config import config
-from trytond.pool import Pool, PoolMeta
-from trytond.tools import decistmt
-from trytond.pyson import Eval, Bool
-from trytond.modules.product_rivals.rivals import _STATES
+from trytond.pool import PoolMeta
+from trytond.pyson import Eval
 
 __all__ = ['ProductAppRivals']
 
