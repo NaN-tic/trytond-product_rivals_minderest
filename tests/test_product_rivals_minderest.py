@@ -19,6 +19,7 @@ class ProductRivalsMinderestTestCase(ModuleTestCase):
         self.app_rivals = POOL.get('product.app.rivals')
         self.uom = POOL.get('product.uom')
         self.template = POOL.get('product.template')
+        self.product_rivals = POOL.get('product.rivals')
 
     def test0010minderest(self):
         'Minderest CSV data'
@@ -74,6 +75,9 @@ class ProductRivalsMinderestTestCase(ModuleTestCase):
             rival1, rival2 = p2.rivals
             self.assertEqual(rival1.price, Decimal('17.63'))
             self.assertEqual(rival2.price, Decimal('17.88'))
+
+            product_rivals = self.product_rivals.search([])
+            self.assertEqual(len(product_rivals), 4)
 
 def suite():
     suite = test_suite()
