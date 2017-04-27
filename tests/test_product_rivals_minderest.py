@@ -21,6 +21,7 @@ class ProductRivalsMinderestTestCase(ModuleTestCase):
         AppRivals = pool.get('product.app.rivals')
         Uom = pool.get('product.uom')
         Template = pool.get('product.template')
+        ProductRivals = pool.get('product.rivals')
 
         company = create_company()
         with set_company(company):
@@ -74,6 +75,9 @@ class ProductRivalsMinderestTestCase(ModuleTestCase):
             rival1, rival2 = p2.rivals
             self.assertEqual(rival1.price, Decimal('17.63'))
             self.assertEqual(rival2.price, Decimal('17.88'))
+
+            product_rivals = ProductRivals.search([])
+            self.assertEqual(len(product_rivals), 4)
 
 def suite():
     suite = test_suite()
