@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!-- This file is part of product_rivals_minderest module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<tryton>
+  <data>
+    <record model="ir.ui.view" id="minderest_recommended_price_tree">
+        <field name="model">product.minderest_recommended_price</field>
+        <field name="type">tree</field>
+        <field name="name">minderest_recommended_price_tree</field>
+    </record>
+    <record model="ir.ui.view" id="minderest_recommended_price_form">
+        <field name="model">product.minderest_recommended_price</field>
+        <field name="type">form</field>
+        <field name="name">minderest_recommended_price_form</field>
+    </record>
+    <record model="ir.action.act_window" id="act_minderest_recommended_price_form">
+        <field name="name">Minderest Recommended Price</field>
+        <field name="res_model">product.minderest_recommended_price</field>
+    </record>
+    <record model="ir.action.act_window.view" id="act_minderest_recommended_price_form_view1">
+        <field name="sequence" eval="10"/>
+        <field name="view" ref="minderest_recommended_price_tree"/>
+        <field name="act_window" ref="act_minderest_recommended_price_form"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_minderest_recommended_price_form_view2">
+        <field name="sequence" eval="20"/>
+        <field name="view" ref="minderest_recommended_price_form"/>
+        <field name="act_window" ref="act_minderest_recommended_price_form"/>
+    </record>
+    <menuitem parent="product_rivals.menu_product_rivals_form" sequence="1"
+        action="act_minderest_recommended_price_form" id="menu_minderest_recommended_price_form"/>
+  </data>
+
+  <data depends="product_esale">
+      <record model="ir.ui.view" id="esale_product_view_form">
+          <field name="model">product.product</field>
+          <field name="inherit" ref="product_esale.esale_product_view_form"/>
+          <field name="name">esale_product_form</field>
+      </record>
+  </data>
+</tryton>
